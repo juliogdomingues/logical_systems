@@ -1,0 +1,57 @@
+#! /usr/share/iverilog-0.9.7/bin/vvp
+:ivl_version "0.9.7 " "(v0_9_6)";
+:vpi_time_precision - 12;
+:vpi_module "system";
+:vpi_module "v2005_math";
+:vpi_module "va_math";
+S_0x1755ce0 .scope module, "testbench" "testbench" 2 1;
+ .timescale -9 -12;
+v0x1766050_0 .var "clk", 0 0;
+v0x1766120_0 .var "d", 0 0;
+v0x17661d0_0 .net "q", 0 0, v0x1765fb0_0; 1 drivers
+S_0x1755dd0 .scope module, "uut" "d_flip_flop" 2 8, 3 3, S_0x1755ce0;
+ .timescale -9 -12;
+v0x17336d0_0 .net "clk", 0 0, v0x1766050_0; 1 drivers
+v0x1765f10_0 .net "d", 0 0, v0x1766120_0; 1 drivers
+v0x1765fb0_0 .var "q", 0 0;
+E_0x17553b0 .event posedge, v0x17336d0_0;
+    .scope S_0x1755dd0;
+T_0 ;
+    %wait E_0x17553b0;
+    %load/v 8, v0x1765f10_0, 1;
+    %ix/load 0, 1, 0;
+    %assign/v0 v0x1765fb0_0, 0, 8;
+    %jmp T_0;
+    .thread T_0;
+    .scope S_0x1755ce0;
+T_1 ;
+    %set/v v0x1766050_0, 0, 1;
+    %set/v v0x1766120_0, 0, 1;
+    %vpi_call 2 20 "$dumpfile", "dump.vcd";
+    %vpi_call 2 21 "$dumpvars", 2'sb01;
+    %delay 10000, 0;
+    %set/v v0x1766120_0, 1, 1;
+    %delay 10000, 0;
+    %set/v v0x1766120_0, 0, 1;
+    %delay 10000, 0;
+    %set/v v0x1766120_0, 1, 1;
+    %delay 10000, 0;
+    %set/v v0x1766120_0, 0, 1;
+    %delay 50000, 0;
+    %vpi_call 2 30 "$finish";
+    %end;
+    .thread T_1;
+    .scope S_0x1755ce0;
+T_2 ;
+    %delay 5000, 0;
+    %load/v 8, v0x1766050_0, 1;
+    %inv 8, 1;
+    %set/v v0x1766050_0, 8, 1;
+    %jmp T_2;
+    .thread T_2;
+# The file index is used to find the file name in the following table.
+:file_names 4;
+    "N/A";
+    "<interactive>";
+    "testbench.sv";
+    "design.sv";
